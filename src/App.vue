@@ -3,15 +3,14 @@
     <MyHeader />
 
     <main>
-      <div>
-        {{ discsArray }}
-      </div>
+      <DiscCard />
     </main>
   </div>
 </template>
 
 <script>
 import MyHeader from './components/MyHeader.vue';
+import DiscCard from './components/DiscCard.vue';
 import axios from 'axios';
 
 export default {
@@ -33,6 +32,7 @@ export default {
   },
   components: {
     MyHeader,
+    DiscCard,
   },
 };
 </script>
