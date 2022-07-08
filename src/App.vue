@@ -18,18 +18,18 @@ export default {
   name: 'App',
   data() {
     return {
-      discsArray: [],
+      // array contenente i dati sui dischi presi tramite API
+      discsArray: '',
     };
   },
-  methods: {
-    mounted() {
-      axios
-        .get('https://flynn.boolean.careers/exercises/api/array/music')
-        .then((response) => {
-          const singleDisc = response.data.response;
-          console.log('response', singleDisc);
-        });
-    },
+  methods: {},
+  mounted() {
+    axios
+      .get('https://flynn.boolean.careers/exercises/api/array/music')
+      .then((response) => {
+        const singleDisc = response.data.response;
+        this.discsArray = singleDisc;
+      });
   },
   components: {
     MyHeader,
