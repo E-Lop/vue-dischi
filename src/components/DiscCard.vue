@@ -20,3 +20,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.disc_card {
+  width: 200px;
+}
+</style>
