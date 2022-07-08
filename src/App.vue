@@ -2,15 +2,35 @@
   <div id="app">
     <MyHeader />
 
-    <main></main>
+    <main>
+      <div>
+        {{ discsArray }}
+      </div>
+    </main>
   </div>
 </template>
 
 <script>
 import MyHeader from './components/MyHeader.vue';
+import axios from 'axios';
 
 export default {
   name: 'App',
+  data() {
+    return {
+      discsArray: [],
+    };
+  },
+  methods: {
+    mounted() {
+      axios
+        .get('https://flynn.boolean.careers/exercises/api/array/music')
+        .then((response) => {
+          const singleDisc = response.data.response;
+          console.log('response', singleDisc);
+        });
+    },
+  },
   components: {
     MyHeader,
   },
