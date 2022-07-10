@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="discs_list">
+    <div v-if="isLoaded" class="discs_list">
       <DiscCard
         v-for="(disc, index) in discsArray"
         :key="index"
@@ -11,11 +11,13 @@
         :year="disc.year"
       />
     </div>
+    <MyLoader v-else />
   </div>
 </template>
 
 <script>
 import DiscCard from './DiscCard.vue';
+import MyLoader from './MyLoader.vue';
 import axios from 'axios';
 
 export default {
@@ -24,6 +26,7 @@ export default {
     return {
       // array contenente i dati sui dischi presi tramite API
       discsArray: [],
+      isLoaded: false,
     };
   },
   methods: {},
@@ -33,10 +36,15 @@ export default {
       .then((response) => {
         const singleDisc = response.data.response;
         this.discsArray = singleDisc;
+      })
+      .catch((err) => {
+        console.log('Error', err);
       });
+    this.isLoaded = true;
   },
   components: {
     DiscCard,
+    MyLoader,
   },
 };
 </script>
