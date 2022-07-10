@@ -36,11 +36,11 @@ export default {
       .then((response) => {
         const singleDisc = response.data.response;
         this.discsArray = singleDisc;
+        this.isLoaded = true;
       })
       .catch((err) => {
         console.log('Error', err);
       });
-    this.isLoaded = true;
   },
   components: {
     DiscCard,
