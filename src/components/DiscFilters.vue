@@ -1,14 +1,20 @@
 <template>
   <div class="dropdown_row">
     <label for="genres">Filtra per genere musicale</label>
-    <select name="genres" id="genres">
+
+    <select
+      name="genres"
+      id="genres"
+      v-model="emittedValue"
+      @change="$emit('filtering', emittedValue)"
+    >
+      <option value="all">All</option>
       <option
-        v-for="(element, index) in info"
+        v-for="(singleGenre, index) in info"
         :key="index"
-        :value="element"
-        @change="$emit('filtering', item)"
+        :value="singleGenre"
       >
-        {{ element }}
+        {{ singleGenre }}
       </option>
     </select>
   </div>
@@ -17,6 +23,11 @@
 <script>
 export default {
   name: 'DiscFilters',
+  data() {
+    return {
+      emittedValue: 'all',
+    };
+  },
   props: ['info'],
 };
 </script>

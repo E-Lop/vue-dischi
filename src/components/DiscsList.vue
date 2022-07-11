@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div v-if="isLoaded" class="discs_list">
-      <DiscFilters :info="genreArray" @filtering="filteredDiscsList()" />
+      <DiscFilters :info="genreArray" @filtering="setActiveFilter" />
       <DiscCard
         v-for="(disc, index) in filteredDiscsList"
         :key="index"
@@ -30,20 +30,19 @@ export default {
       // array che contiene i generi musicali
       genreArray: [],
       isLoaded: false,
-      filterKeySelected: '',
+      filterKeySelected: 'all',
     };
   },
   computed: {
     filteredDiscsList() {
-      if (this.filterKeySelected == '') {
+      if (this.filterKeySelected == 'all') {
         return this.discsArray;
       }
 
-      return this.discsArray.filter((disc) => {
-        return disc.genre
-          .toLowerCase()
-          .includes(this.filterKeySelected.toLowerCase());
-      });
+      return this.discsArray.filter(
+        (disc) =>
+          disc.genre.toLowerCase() === this.filterKeySelected.toLowerCase()
+      );
     },
   },
   methods: {
@@ -54,6 +53,9 @@ export default {
           this.genreArray.push(element.genre);
         }
       });
+    },
+    setActiveFilter(emittedValue) {
+      this.filterKeySelected = emittedValue;
     },
   },
   mounted() {
