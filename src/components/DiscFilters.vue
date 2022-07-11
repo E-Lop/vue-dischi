@@ -3,9 +3,10 @@
     <label for="genres">Filtra per genere musicale</label>
     <select name="genres" id="genres">
       <option
-        v-for="(element, index) in genreArray"
+        v-for="(element, index) in info"
         :key="index"
         :value="element"
+        @click.prevent="filterdiscs()"
       >
         {{ element }}
       </option>
@@ -16,7 +17,8 @@
 <script>
 export default {
   name: 'DiscFilters',
-  props: ['genreArray'],
+  props: ['info'],
+  computed: {},
 };
 </script>
 
