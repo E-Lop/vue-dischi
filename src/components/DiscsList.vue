@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <div v-if="isLoaded" class="discs_list">
+      <DiscFilters :value="genreArray" />
       <DiscCard
         v-for="(disc, index) in discsArray"
         :key="index"
         :author="disc.author"
-        :genre="disc.genre"
         :poster="disc.poster"
         :title="disc.title"
         :year="disc.year"
@@ -18,6 +18,7 @@
 <script>
 import DiscCard from './DiscCard.vue';
 import MyLoader from './MyLoader.vue';
+import DiscFilters from './DiscFilters.vue';
 import axios from 'axios';
 
 export default {
@@ -26,10 +27,21 @@ export default {
     return {
       // array contenente i dati sui dischi presi tramite API
       discsArray: [],
+      // array che contiene i generi musicali
+      genreArray: [],
       isLoaded: false,
     };
   },
-  methods: {},
+  methods: {
+    // inserisce i generi musicali nell'array senza doppioni
+    extractGenres() {
+      this.discsArray.forEach((element) => {
+        if (!this.genreArray.includes(element.genre)) {
+          this.genreArray.push(element.genre);
+        }
+      });
+    },
+  },
   mounted() {
     axios
       .get('https://flynn.boolean.careers/exercises/api/array/music')
@@ -37,14 +49,17 @@ export default {
         const singleDisc = response.data.response;
         this.discsArray = singleDisc;
         this.isLoaded = true;
+        this.extractGenres(this.discsArray);
       })
       .catch((err) => {
         console.log('Error', err);
       });
   },
+
   components: {
     DiscCard,
     MyLoader,
+    DiscFilters,
   },
 };
 </script>
