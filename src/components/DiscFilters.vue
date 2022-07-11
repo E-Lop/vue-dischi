@@ -6,7 +6,7 @@
         v-for="(element, index) in info"
         :key="index"
         :value="element"
-        @click.prevent="filterdiscs()"
+        @change="$emit('filtering', item)"
       >
         {{ element }}
       </option>
@@ -18,7 +18,6 @@
 export default {
   name: 'DiscFilters',
   props: ['info'],
-  computed: {},
 };
 </script>
 
