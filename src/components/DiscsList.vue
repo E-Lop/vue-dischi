@@ -29,6 +29,8 @@ export default {
       discsArray: [],
       // array che contiene i generi musicali
       genreArray: [],
+      // array che contiene gli artisti
+      artistsArray: [],
       isLoaded: false,
       filterKeySelected: 'all',
     };
@@ -54,6 +56,14 @@ export default {
         }
       });
     },
+    // inserisce gli artisti nell'array senza doppioni
+    extractArtists() {
+      this.discsArray.forEach((element) => {
+        if (!this.artistsArray.includes(element.author)) {
+          this.artistsArray.push(element.author);
+        }
+      });
+    },
     setActiveFilter(emittedValue) {
       this.filterKeySelected = emittedValue;
     },
@@ -66,6 +76,7 @@ export default {
         this.discsArray = singleDisc;
         this.isLoaded = true;
         this.extractGenres(this.discsArray);
+        this.extractArtists(this.discsArray);
       })
       .catch((err) => {
         console.log('Error', err);
